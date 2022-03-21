@@ -1,0 +1,16 @@
+footer.Footer {
+  background-image: var(--pattern-white);
+  background-size: var(--pattern-size);
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: black;
+  text-align: center;
+  height: 3rem;
+  padding-top: 1rem;
+}
+
+@media (max-width: 650px) {
+  footer.Footer {
+    font-size: 0.7rem;
+  }
+}

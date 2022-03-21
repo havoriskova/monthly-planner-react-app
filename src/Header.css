@@ -1,0 +1,140 @@
+header.Header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  height: 5rem;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Header h1 {
+  text-transform: capitalize;
+  margin: 0;
+  flex-grow: 1;
+  background-image: var(--pattern-white);
+  background-size: var(--pattern-size);
+  background-attachment: fixed;
+  background-repeat: repeat;
+  /* background-color: rgb(200, 200, 200); */
+}
+
+.Header .menu-icon {
+  display: none;
+}
+
+.Header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  height: 100%;
+}
+
+.Header nav li,
+.Header h1 {
+  height: 100%;
+  display: flex;
+}
+
+.Header nav li a,
+.Header h1 a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  color: black;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  background-color: white;
+  font-family: "Special Elite", cursive;
+}
+
+.Header h1 a {
+  background-color: transparent;
+  color: gold;
+  text-shadow: 2px 2px 2px black, 0px 0px 2px black;
+}
+
+.Header nav li a:hover {
+  background-color: transparent;
+  color: white;
+}
+
+@media (max-width: 900px) {
+  header.Header {
+    display: block;
+  }
+
+  .Header h1 {
+    font-size: 1.3rem;
+  }
+
+  .Header .menu-icon {
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    right: 1rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    background-color: #000;
+    transition: background-color 0.3s ease;
+    border: none;
+  }
+
+  .Header .menu-icon::before,
+  .Header .menu-icon::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+    background-color: #fff;
+    width: 105%;
+    height: 6px;
+    left: -1px;
+    transition: transform 0.4s ease;
+  }
+
+  .Header .menu-icon::after {
+    top: 18px;
+  }
+
+  .Header .menu-icon.active-icon {
+    /*specificity*/
+    background-color: #fff;
+  }
+
+  .Header .menu-icon.active-icon::before {
+    background-color: #000;
+    transform: rotate(45deg) scaleX(1.4) translate(3px, 4px);
+    border-radius: 4px;
+  }
+
+  .Header .menu-icon.active-icon::after {
+    background-color: #000;
+    transform: rotate(-45deg) scaleX(1.4) translate(3px, -4px);
+    border-radius: 4px;
+  }
+
+  .Header nav ul {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .Header .active-nav {
+    display: block;
+  }
+
+  .Header nav ul li a {
+    width: 100%;
+    padding: 0.8rem 0;
+    justify-content: center;
+    /* background-color: rgb(0 0 0 /0.2); */
+  }
+
+  .Header nav ul li a:hover {
+    background-color: black;
+  }
+}
