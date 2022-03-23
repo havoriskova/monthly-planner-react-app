@@ -1,4 +1,4 @@
-#gallery {
+aside.Gallery {
   background-image: var(--pattern-black);
   background-size: var(--pattern-size);
   background-repeat: repeat;
@@ -6,18 +6,18 @@
   padding-bottom: 3rem;
 }
 
-#grid-parent {
+.Gallery .grid-parent {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 1rem;
 }
 
-.img-grid {
+.Gallery .img-grid {
   border: solid red 1px;
   aspect-ratio: 1 / 1;
 }
 
-.img-grid img {
+.Gallery .img-grid img {
   border: solid yellow 1px;
   width: 100%;
   height: 100%;
@@ -26,7 +26,7 @@
   transition: filter 0.5s ease;
 }
 
-.img-grid img:hover {
+.Gallery .img-grid img:hover {
   filter: grayscale(50%);
   object-fit: none; /*po optimalizaci fotek by tohle mohlo jít, 
   prostě by to šlo do své originální šířky*/
@@ -43,7 +43,7 @@
 }
 
 @media (max-width: 560px) {
-  .img-grid img:hover {
+  .Gallery .img-grid img:hover {
     cursor: inherit;
     filter: none;
     object-fit: cover;
