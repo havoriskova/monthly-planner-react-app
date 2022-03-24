@@ -3,7 +3,13 @@ aside.Gallery {
   background-size: var(--pattern-size);
   background-repeat: repeat;
   background-attachment: fixed;
+  padding: 1rem 5rem 3rem;
   padding-bottom: 3rem;
+}
+
+.Gallery h2 {
+  font-family: "Special Elite", cursive;
+  padding: 1rem 0;
 }
 
 .Gallery .grid-parent {

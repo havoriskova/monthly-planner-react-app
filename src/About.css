@@ -1,5 +1,5 @@
 .About h2 {
-  font-family: "Special Elite", cursive;
+  font-family: var(--font-headers);
   padding: 1rem 0;
 }
 

@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Bitter:wght@300;400;500;600;700&family=Special+Elite&display=swap");
+
 *,
 *::after,
 *::before {
@@ -12,10 +14,12 @@
   --pattern-white: url("./img/pattern-white-5.png");
   --pattern-black: url("./img/pattern-black-4.png");
   --color-for-preview: black;
+  --font-headers: "Special Elite", cursive;
+  --font-p: "Bitter", serif;
 }
 
 body {
-  font-family: sans-serif;
+  font-family: var(--font-p);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;

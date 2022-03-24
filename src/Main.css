@@ -26,6 +26,8 @@ main.Main {
 .Main .mask ~ h2 {
   z-index: 2;
   position: relative;
+  padding: 1rem 0;
+  font-family: var(--font-headers);
 }
 
 .Main #generator-section {
@@ -173,7 +175,7 @@ input[type="radio"]:nth-of-type(3) {
   jen při klikání*/
 }
 
-.polygon::before {
+.Main .polygon::before {
   position: absolute;
   /* left: 0.9rem;
   top: 1rem; */
@@ -185,21 +187,21 @@ input[type="radio"]:nth-of-type(3) {
   height: 1rem;
 }
 
-#form-notes:checked ~ .polygon::before {
+.Main #form-notes:checked ~ .polygon::before {
   background-color: gold;
 }
 
-.td-polygon {
+.Main .td-polygon {
   /*kvůli polygonu*/
   position: relative;
   display: flex;
 }
 
-span.polygon {
+.Main span.polygon {
   position: relative;
 }
 
-#form-notes:checked ~ .polygon::after {
+.Main #form-notes:checked ~ .polygon::after {
   position: absolute;
   left: 0.1rem;
   top: 0.1rem;
@@ -211,7 +213,7 @@ span.polygon {
 }
 /*konec checkboxu*/
 
-#submit-button {
+.Main #submit-button {
   position: relative;
   z-index: 5;
   background-color: lightgreen; /**/
@@ -228,12 +230,12 @@ span.polygon {
   cursor: pointer;
 }
 
-#submit-button:hover {
+.Main #submit-button:hover {
   background-color: gold; /**/
   color: black;
 }
 
-#preview-container {
+.Main #preview-container {
   flex: 0 0 45%;
   /* background-color: rgba(50 50 50 / 0.2);  */
   position: relative;
@@ -246,25 +248,25 @@ span.polygon {
   align-items: center;
 } */
 
-#preview-orientation {
+.Main #preview-orientation {
   /* background-color: rgba(200 200 200 / 0.2); */
   position: relative;
   margin: 0 auto; /*pozici absolute dát nemůžu, protože na výšce previewu je závislá výška celého main*/
 }
 
-#preview-orientation.orientation-landscape {
+.Main #preview-orientation.orientation-landscape {
   width: 90%; /*nechceš přes celou šířku - pak se to snaží s celou šířkou dodržet aspect-ratio, a přesahuje svůj parent element + změnit u media*/
   height: auto;
   aspect-ratio: 1.4142 / 1; /*pro A4*/
 }
 
-#preview-orientation.orientation-portrait {
+.Main #preview-orientation.orientation-portrait {
   height: 100%;
   width: auto;
   aspect-ratio: 1 / 1.4142;
 }
 
-#preview {
+.Main #preview {
   background-color: white;
   padding: 20px;
   color: black;
@@ -300,11 +302,11 @@ span.polygon {
   border: solid red 1px;
 } */
 
-#preview h3 {
+.Main #preview h3 {
   margin: 0;
 }
 
-#date {
+.Main #date {
   flex: 0 0 5%;
   text-transform: uppercase;
   display: flex;
@@ -312,7 +314,7 @@ span.polygon {
   padding: 1%;
 }
 
-#days-of-week-container {
+.Main #days-of-week-container {
   flex: 0 0 5%;
   text-transform: capitalize;
   display: grid;
@@ -321,7 +323,7 @@ span.polygon {
   color: white;
 }
 
-#days-of-week-container * {
+.Main #days-of-week-container * {
   background-color: var(--color-for-preview);
   font-size: 0.4rem;
   display: grid;
@@ -337,12 +339,12 @@ span.polygon {
   font-family: sans-serif;
 } */
 
-#calendar {
+.Main #calendar {
   flex: 1 1 60%;
   position: relative;
 }
 
-#calendar::after {
+.Main #calendar::after {
   /*- na zakrytí vnější border u jednotlivých dnů*/
   position: absolute;
   content: "";
@@ -353,26 +355,26 @@ span.polygon {
   border: 5px white solid;
 }
 
-#preview.orientation-portrait #calendar::after {
+.Main #preview.orientation-portrait #calendar::after {
   border: 4px white solid;
 }
 
-#notes {
+.Main #notes {
   flex: 0 0 20%;
   border: solid var(--color-for-preview) 1px;
   margin-top: 2%;
   padding: 1%;
 }
 
-.no-notes {
+.Main .no-notes {
   display: none;
 }
 
-.gray-numbers {
+.Main .gray-numbers {
   color: gray;
 }
 
-.grid-container {
+.Main .grid-container {
   display: grid;
   grid-template-columns: repeat(
     7,
@@ -380,35 +382,35 @@ span.polygon {
   ); /*tím pádem nepotřebuju znát počet týdnů u měsíců*/
 }
 
-.grid-child {
+.Main .grid-child {
   border: solid var(--color-for-preview) 0.2px;
   padding: 8%;
 }
 
-.changing-color {
+.Main .changing-color {
   color: var(--color-for-preview);
 }
 
 @media (max-width: 1200px) {
-  main {
+  main.Main {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  #preview-orientation.orientation-landscape {
+  .Main #preview-orientation.orientation-landscape {
     width: 100%;
   }
 }
 
 @media (max-width: 900px) {
-  main {
+  main.Main {
     height: min-content; /*tohle je už javascriptem, ne*/
   }
 
-  #generator-section {
+  .Main #generator-section {
     display: block; /*zrušení flexboxu*/
   }
 
-  #submit-button {
+  .Main #submit-button {
     bottom: -50px;
   }
 
@@ -416,7 +418,7 @@ span.polygon {
     color: red;
   } */
 
-  #generator-form {
+  .Main #generator-form {
     padding-bottom: 2rem;
   }
 
@@ -424,27 +426,27 @@ span.polygon {
     place-items: stretch;
   } */
 
-  #preview-orientation.orientation-landscape {
+  .Main #preview-orientation.orientation-landscape {
     width: 80%;
   }
 
-  #preview-orientation.orientation-portrait {
+  .Main #preview-orientation.orientation-portrait {
     width: 50%;
   }
 }
 
 @media (max-width: 650px) {
-  #preview-orientation.orientation-landscape {
+  .Main #preview-orientation.orientation-landscape {
     width: 100%;
   }
 
-  #preview-orientation.orientation-portrait {
+  .Main #preview-orientation.orientation-portrait {
     width: 80%;
   }
 }
 
 @media (max-width: 560px) {
-  form {
+  .Main form {
     font-size: 0.75rem;
   }
 }

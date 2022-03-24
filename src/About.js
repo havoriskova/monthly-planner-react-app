@@ -22,8 +22,7 @@ export default function About() {
         
             <p>
               If you strugle
-              with your design, just look in the
-              <a href="#gallery" className="link-in-text">gallery</a> for an
+              with your design, just look in the <a href="#gallery" className="link-in-text">gallery</a> for an
               inspiration! You can also find there possible ways how to use your
               monthly planner.
             </p>

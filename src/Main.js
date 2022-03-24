@@ -8,22 +8,23 @@ export default function Main() {
   let mediaMatches = MediaMatches(`(max-width:900px)`); // true nebo false hodnota
 
 
-// function changeWidth() {
+// function changeHeight() {
 
-// const main = document.querySelector("main");
+//     const main = document.querySelector("main");
 
-// let myHeight = window.screen.availHeight;
+//    let [myHeight, setMyHeight] = useState(window.screen.availHeight);
+//     let myHeight = window.screen.availHeight;
 
-// if(window.innerWidth > 900) {
-// main.style.height= `${myHeight-110}px`;
-// } else {
-//     main.style.height= "min-content";
+//     if(window.innerWidth > 900) {
+//     main.style.height= `${myHeight-110}px`;
+//     } else {
+//         main.style.height= "min-content";
+//     }
 // }
-// }
 
-// window.addEventListener("resize", changeWidth);
+// window.addEventListener("resize", changeHeight);
 
-// changeWidth();
+// changeHeight();
 
 
 // // začátek
@@ -305,13 +306,13 @@ export default function Main() {
             
               <form id="generator-form">
                 <p>
-                  Fill this form according to your preference -
-                  <span className="text-change">{mediaMatches ? "down below" : "on the left side"}</span> you can see a preview
+                  Fill this form according to your preference - <span className="text-change">{mediaMatches ? "down below" : "on the left side"}</span> you can see a preview
                   of January:
                 </p>
                 <table>
-                  <tr>
-                    <th><label for="form-year">year:</label></th>
+                   <tbody>
+                    <tr>
+                    <th><label htmlFor="form-year">year:</label></th>
                     <td>
                       <select name="year" id="form-year">
                         <option value="2022">2022</option>
@@ -321,9 +322,10 @@ export default function Main() {
                       </select>
                     </td>
                   </tr>
+                    </tbody>
 
                   <tr>
-                    <th><label for="input-color">color: </label></th>
+                    <th><label htmlFor="input-color">color: </label></th>
                     <td>
                       <input type="color" name="color" id="input-color" />
                     </td>
@@ -337,13 +339,13 @@ export default function Main() {
                         id="landscape"
                         value="landscape"
                         name="orientation"
-                      /><label for="landscape" className="radio-label">landscape</label>
+                      /><label htmlFor="landscape" className="radio-label">landscape</label>
                       <input
                         type="radio"
                         id="portrait"
                         value="portrait"
                         name="orientation"
-                      /><label for="portrait" className="radio-label">portrait</label>
+                      /><label htmlFor="portrait" className="radio-label">portrait</label>
                     </td>
                   </tr>
 
@@ -355,19 +357,19 @@ export default function Main() {
                         id="bitter"
                         value="bitter"
                         name="font"
-                      /><label for="bitter" className="radio-label">bitter</label>
+                      /><label htmlFor="bitter" className="radio-label">bitter</label>
                       <input
                         type="radio"
                         id="serif"
                         value="serif"
                         name="font"
-                      /><label for="serif" className="radio-label">serif</label>
+                      /><label htmlFor="serif" className="radio-label">serif</label>
                       <input
                         type="radio"
                         id="sans-serif"
                         value="sans-serif"
                         name="font"
-                      /><label for="sans-serif" className="radio-label">sans serif</label>
+                      /><label htmlFor="sans-serif" className="radio-label">sans serif</label>
                     </td>
                   </tr>
 
@@ -379,26 +381,26 @@ export default function Main() {
                         id="english"
                         value="english"
                         name="language"
-                      /><label for="english" className="radio-label">english</label>
+                      /><label htmlFor="english" className="radio-label">english</label>
                       <input
                         type="radio"
                         id="czech"
                         value="czech"
                         name="language"
-                      /><label for="czech" className="radio-label">czech</label>
+                      /><label htmlFor="czech" className="radio-label">czech</label>
                       <input
                         type="radio"
                         id="dutch"
                         value="dutch"
                         name="language"
-                      /><label for="dutch" className="radio-label">dutch</label>
+                      /><label htmlFor="dutch" className="radio-label">dutch</label>
                     </td>
                   </tr>
 
                   <tr>
-                    <th><label for="form-notes">extra space for notes:</label></th>
+                    <th><label htmlFor="form-notes">extra space for notes:</label></th>
                     <td className="td-polygon">
-                      <label for="form-notes"
+                      <label htmlFor="form-notes"
                         ><input type="checkbox" id="form-notes" name="notes" /><span
                           className="polygon"
                         ></span

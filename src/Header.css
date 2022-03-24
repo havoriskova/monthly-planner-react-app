@@ -60,6 +60,7 @@ header.Header {
 .Header nav li a:hover {
   background-color: transparent;
   color: white;
+  cursor: pointer;
 }
 
 @media (max-width: 900px) {
