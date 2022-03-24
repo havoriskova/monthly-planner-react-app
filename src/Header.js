@@ -15,16 +15,22 @@ function respNav () {
 
 }
 
+function scrollFun (e) {
+let idName = e.target.attributes[0].value;
+let element = document.getElementById(idName);
+element.scrollIntoView({behavior: "smooth"});
+}
+
 
 
     return(
          <header className="Header">
-            <h1><a href="#start">Monthly planner generator</a></h1>
+            <h1><a>Monthly planner generator</a></h1>
             <nav>
               <span className={["menu-icon", activeIcon].join(" ")} onClick={respNav}></span>
               <ul className={activeNav}>
-                <li><a href="#generator">Generator</a></li>
-                <li><a href="#gallery">Gallery</a></li>
+                <li><a data-id="generator" onClick={scrollFun}>Generator</a></li>
+                <li><a data-id="gallery" onClick={scrollFun}>Gallery</a></li>
               </ul>
             </nav>
       </header>

@@ -4,7 +4,7 @@ import dino from "./img/dino.jpg";
 
 export default function Gallery() {
     return(
-        <aside className="Gallery">
+        <aside className="Gallery" id="gallery">
             <h2>Get your inspiration</h2>
             
             <section className="grid-parent">
