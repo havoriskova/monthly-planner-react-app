@@ -13,7 +13,7 @@
   --pattern-size: 10%;
   --pattern-white: url("./img/pattern-white-5.png");
   --pattern-black: url("./img/pattern-black-4.png");
-  --color-for-preview: black;
+  --color-for-preview: green;
   --font-headers: "Special Elite", cursive;
   --font-p: "Bitter", serif;
 }

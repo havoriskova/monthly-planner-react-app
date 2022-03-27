@@ -76,14 +76,14 @@ main.Main {
   cursor: pointer;
 }
 
-.Main table tr:nth-of-type(3) label,
-.Main table tr:nth-of-type(3) input,
-.Main table tr:nth-of-type(4) label,
-.Main table tr:nth-of-type(4) input,
-.Main table tr:nth-of-type(5) label,
-.Main table tr:nth-of-type(5) input,
-.Main table tr:nth-of-type(6) label,
-.Main table tr:nth-of-type(6) input {
+.Main table tbody:nth-of-type(3) label,
+.Main table tbody:nth-of-type(3) input,
+.Main table tbody:nth-of-type(4) label,
+.Main table tbody:nth-of-type(4) input,
+.Main table tbody:nth-of-type(5) label,
+.Main table tbody:nth-of-type(5) input,
+.Main table tbody:nth-of-type(6) label,
+.Main table tbody:nth-of-type(6) input {
   cursor: pointer;
 }
 
@@ -403,7 +403,7 @@ input[type="radio"]:nth-of-type(3) {
 
 @media (max-width: 900px) {
   main.Main {
-    height: min-content; /*tohle je už javascriptem, ne*/
+    height: min-content; /*tohle je už javascriptem*/
   }
 
   .Main #generator-section {
