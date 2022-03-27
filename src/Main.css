@@ -55,7 +55,7 @@ main.Main {
   border-spacing: 0;
 }
 
-.Main table tr:nth-child(odd) {
+.Main table tbody:nth-child(odd) {
   background-color: gold;
 }
 

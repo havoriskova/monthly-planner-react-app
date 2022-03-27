@@ -1,30 +1,58 @@
-import {useState} from "react";
-import MediaMatches from "./MediaMatches";
+import {useState, useEffect} from "react";
 import "./Main.css";
 
 
 export default function Main() {
 
-  let mediaMatches = MediaMatches(`(max-width:900px)`); // true nebo false hodnota
+//text - pak hodit do samostatného custom hooku
+
+//console.log("1 window.matchMedia: " + window.matchMedia); //MediaQueryList - matches, media, onchange
+//console.log("2 window.matchMedia(`(max-width:900px)`): " + window.matchMedia(`(max-width:900px)`));
+//console.log("3 window.matchMedia(`(max-width:900px)`).matches: " + window.matchMedia(`(max-width:900px)`).matches);
+
+let isMediaMatching = window.matchMedia(`(max-width:900px)`).matches;
+//console.log(mediaMatchesTwo);
+
+//konec textu
 
 
-// function changeHeight() {
+// výška mainu - pak hodit do samostatného custom hooku 
+let [currentWidth, setWidth] = useState(window.innerWidth);
+let [curHeight, setHeight] = useState(() => initialHeight());
 
-//     const main = document.querySelector("main");
+function initialHeight() {
+      if(currentWidth > 900) {
+        let calcHeight = window.screen.availHeight - 110; 
+        return `${calcHeight}px`;
+      } else {
+        return "min-content";
+      }
 
-//    let [myHeight, setMyHeight] = useState(window.screen.availHeight);
-//     let myHeight = window.screen.availHeight;
+}
 
-//     if(window.innerWidth > 900) {
-//     main.style.height= `${myHeight-110}px`;
-//     } else {
-//         main.style.height= "min-content";
-//     }
-// }
 
-// window.addEventListener("resize", changeHeight);
+function handleResize() {
+setWidth(window.innerWidth);
 
-// changeHeight();
+let calcHeight = window.screen.availHeight - 110; 
+console.log(window.screen.availHeight - 110);
+
+  if (currentWidth > 900) {
+ setHeight(`${calcHeight}px`); 
+ //console.log("je větší jak 900");
+  } else {
+      setHeight("min-content"); 
+      //console.log("je menší jak 900");
+  }
+}
+
+useEffect(() =>  { 
+  window.addEventListener("resize", handleResize);
+  return () => { window.removeEventListener("resize", handleResize)}
+})
+// konec výšky mainu 
+
+
 
 
 // // začátek
@@ -298,7 +326,7 @@ export default function Main() {
 // }
 
     return (
-         <main className="Main" id="generator">
+         <main className="Main" id="generator" style={{height: curHeight}}>
             <div className="mask"></div>
             <h2>Generate your own planner!</h2>
           
@@ -306,7 +334,8 @@ export default function Main() {
             
               <form id="generator-form">
                 <p>
-                  Fill this form according to your preference - <span className="text-change">{mediaMatches ? "down below" : "on the left side"}</span> you can see a preview
+                  Fill this form according to your preference - <span
+                   className="text-change">{isMediaMatching ? "down below" : "on the left side"}</span> you can see a preview
                   of January:
                 </p>
                 <table>
@@ -324,13 +353,16 @@ export default function Main() {
                   </tr>
                     </tbody>
 
+                <tbody>
                   <tr>
                     <th><label htmlFor="input-color">color: </label></th>
                     <td>
                       <input type="color" name="color" id="input-color" />
                     </td>
                   </tr>
+                  </tbody>
 
+                  <tbody>
                   <tr>
                     <th><span>orientation:</span></th>
                     <td>
@@ -348,7 +380,9 @@ export default function Main() {
                       /><label htmlFor="portrait" className="radio-label">portrait</label>
                     </td>
                   </tr>
+                  </tbody>
 
+                <tbody>
                   <tr>
                     <th><span>font:</span></th>
                     <td className="td-font">
@@ -372,7 +406,9 @@ export default function Main() {
                       /><label htmlFor="sans-serif" className="radio-label">sans serif</label>
                     </td>
                   </tr>
+                  </tbody>
 
+                  <tbody>
                   <tr>
                     <th><span>language:</span></th>
                     <td>
@@ -396,7 +432,9 @@ export default function Main() {
                       /><label htmlFor="dutch" className="radio-label">dutch</label>
                     </td>
                   </tr>
+                  </tbody>
 
+                <tbody>
                   <tr>
                     <th><label htmlFor="form-notes">extra space for notes:</label></th>
                     <td className="td-polygon">
@@ -407,6 +445,7 @@ export default function Main() {
                       ></label>
                     </td>
                   </tr>
+                  </tbody>
                 </table>
               </form>
 
