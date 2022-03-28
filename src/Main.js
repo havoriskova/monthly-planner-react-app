@@ -60,16 +60,11 @@ useEffect(() => {
 
 //----------------konec color
 
-let [selectedLanguage, setLanguage] = useState("dutch"); // default language nastaven
-// initial call na setAttribute("checked", ""); na ten element, na kterém je 
-// id "selectedLanguage"
-function handleLanguageChange(e) {
-  setLanguage(e.target.value);
-}
-
-//let elLang = document.getElementById("dutch");
-// console.log("whyyyyyyyyyyy" + elLang + selectedLanguage);
-//elLang.setAttribute("defaultChecked", "");
+const daysOfWeek = {
+            czech: ["pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"],
+            dutch: ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"],
+            english: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
+            }
 
 // const months = {
 //             czech: ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"] ,
@@ -77,14 +72,29 @@ function handleLanguageChange(e) {
 //             english: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
 //             }
 
-// const daysOfWeek = {
-//             czech: ["pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"],
-//             dutch: ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"],
-//             english: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-//             }
+
+let [selectedLanguage, setLanguage] = useState("dutch"); // default language nastaven
+// initial call na setAttribute("checked", ""); na ten element, na kterém je 
+// id "selectedLanguage" - defaultChecked={true} - BOHUŽEL TEĎ NATVRDO V JSX
+// defaultChecked={this.value == selectedLanguage ? true : false} přímo u elementů ?
+//console.log(document.getElementById(`${selectedLanguage}`));
+//document.getElementById(`${selectedLanguage}`).setAttribute("defaultChecked", "true");
+let [chosenDays, setDays] = useState({...daysOfWeek.dutch});
+//let [chosenMonths, setMonths] = useState("");
+
+function handleLanguageChange(e) {
+  setLanguage(e.target.value);
+}
 
 useEffect(() => {
-console.log(selectedLanguage);
+console.log("ahoj z useEffectu " + selectedLanguage);
+let lang = selectedLanguage;
+console.log(lang);
+//setDays([...daysOfWeek.english]);
+//setDays(`[...daysOfWeek.${selectedLanguage}]`); string template literal mám špatně
+//setDays([...daysOfWeek.lang]); chyba "not iterable"
+setDays({...daysOfWeek.lang});
+
 }, [selectedLanguage])
 
 //
@@ -485,7 +495,7 @@ console.log(selectedLanguage);
                         type="radio"
                         id="dutch"
                         value="dutch"
-                        name="language" onInput={handleLanguageChange}
+                        name="language" onInput={handleLanguageChange} defaultChecked={true}
                       /><label htmlFor="dutch" className="radio-label">dutch</label>
                     </td>
                   </tr>
@@ -514,13 +524,13 @@ console.log(selectedLanguage);
                       <span id="name-of-year">2022</span>
                     </section>
                     <section id="days-of-week-container">
-                      <span className="day-of-week"></span>
-                      <span className="day-of-week"></span>
-                      <span className="day-of-week"></span>
-                      <span className="day-of-week"></span>
-                      <span className="day-of-week"></span>
-                      <span className="day-of-week"></span>
-                      <span className="day-of-week"></span>
+                      <span className="day-of-week">{chosenDays[0]}</span>
+                      <span className="day-of-week">{chosenDays[1]}</span>
+                      <span className="day-of-week">{chosenDays[2]}</span>
+                      <span className="day-of-week">{chosenDays[3]}</span>
+                      <span className="day-of-week">{chosenDays[4]}</span>
+                      <span className="day-of-week">{chosenDays[5]}</span>
+                      <span className="day-of-week">{chosenDays[6]}</span>
                     </section>
                     <section id="calendar" className="grid-container"></section>
                     <section id="notes" className="changing-color">Notes:</section>
