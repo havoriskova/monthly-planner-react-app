@@ -60,67 +60,82 @@ useEffect(() => {
 
 //----------------konec color
 
-const daysOfWeek = {
+const language = {
+ daysOfWeek: {
             czech: ["pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"],
             dutch: ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"],
             english: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-            }
+            },
 
-// const months = {
-//             czech: ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"] ,
-//             dutch:  ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
-//             english: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
-//             }
+ months: {
+            czech: ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"] ,
+            dutch:  ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
+            english: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+            },
 
+  notes: { czech: "Poznámky",
+           dutch: "Notities",
+           english: "Notes"}
+          }
 
-let [selectedLanguage, setLanguage] = useState("dutch"); // default language nastaven
-// initial call na setAttribute("checked", ""); na ten element, na kterém je 
-// id "selectedLanguage" - defaultChecked={true} - BOHUŽEL TEĎ NATVRDO V JSX
-// defaultChecked={this.value == selectedLanguage ? true : false} přímo u elementů ?
-//console.log(document.getElementById(`${selectedLanguage}`));
-//document.getElementById(`${selectedLanguage}`).setAttribute("defaultChecked", "true");
-let [chosenDays, setDays] = useState({...daysOfWeek.dutch});
-//let [chosenMonths, setMonths] = useState("");
+let [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default language
+
+//console.dir(document.getElementById(selectedLanguage));
+// možná je zapotřebí v tomhle případě asynchronní JS + nějaká spojitost s UseEffect
+//document.getElementById(selectedLanguage).setAttribute("data-m", "true");
+//document.getElementById(selectedLanguage).setAttribute("defaultChecked", "true");
+//console.dir(document.getElementById(selectedLanguage));
+
+let [chosenDays, setDays] = useState(language.daysOfWeek.dutch);
+let [chosenMonths, setMonths] = useState(language.months.dutch);
+let [notes, setNotes] = useState(language.notes.dutch);
 
 function handleLanguageChange(e) {
   setLanguage(e.target.value);
 }
 
 useEffect(() => {
-console.log("ahoj z useEffectu " + selectedLanguage);
+//console.log("ahoj z useEffectu " + selectedLanguage);
 let lang = selectedLanguage;
-console.log(lang);
-//setDays([...daysOfWeek.english]);
-//setDays(`[...daysOfWeek.${selectedLanguage}]`); string template literal mám špatně
-//setDays([...daysOfWeek.lang]); chyba "not iterable"
-setDays({...daysOfWeek.lang});
+//console.log(lang);
+//console.log(typeof(lang));
+//console.dir(daysOfWeek[lang]);
+setDays(language.daysOfWeek[lang]);
+setMonths(language.months[lang]);
+setNotes(language.notes[lang]);
 
 }, [selectedLanguage])
+// pokud do [dependencies] dám  language.daysOfWeek, language.months, language.notes, 
+// jak si to přeje terminal, tak mám infinity loop - v console se mi furt zobrazují logy
 
-//
+//------ konec language
 
+//console.log(document.getElementById("form-notes"));
+console.dir(document.getElementById("form-notes")); // v console se mi zobrazují "null",
+// po prvním načtení, ač je id zde.. a poté se mi to zobrazuje 2x - nutnost asynchronního JS?
+//console.log(document.getElementById("form-notes").value);
 
-//             let language;
-//             if (!e) {language = previewLook.defaultLanguage;
-//             let lang = document.getElementById(previewLook.defaultLanguage);
-//             lang.setAttribute("checked", "");
+//const inputNotes = document.getElementById("form-notes");
 
-//             }  else {language = e.path[0].id} // -> string
+// useEffect(() => {
+// if (inputNotes.value === "on") {
+//   inputNotes.classList.add("no-notes");
+// } else {
+//   inputNotes.classList.remove("no-notes");
+// }
+
+// }, [inputNotes])
+
+// ----------konec notes
+
+//         changeNotes: function(e){
+//             if(!e && previewLook.defaultNotes == "on") {
+//             formNotes.setAttribute("checked", "");
+//             notes.classList.remove("no-notes");
+//             } else {
             
-//             changeMonth(language);
-//             changeWeek(language);
-
-//                 function changeMonth(language) {
-//                 previewMonth.innerHTML =  months[language][0]; 
-//                 }
-
-//                 function changeWeek(language) {
-//                 for(let i = 0; i < 7; i++) {
-//                 daysOfWeekPreview[i].innerHTML = daysOfWeek[language][i];
-//                 }
-//                 }       
-
-
+//             notes.classList.toggle("no-notes");}
+//         }
 
 // // // začátek
 
@@ -520,7 +535,7 @@ setDays({...daysOfWeek.lang});
                 <section id="preview-orientation" className="orientation-landscape">
                   <section id="preview">
                     <section id="date" className="changing-color">
-                      <h3 id="name-of-month">January</h3>
+                      <h3 id="name-of-month">{chosenMonths[0]}</h3>
                       <span id="name-of-year">2022</span>
                     </section>
                     <section id="days-of-week-container">
@@ -533,7 +548,7 @@ setDays({...daysOfWeek.lang});
                       <span className="day-of-week">{chosenDays[6]}</span>
                     </section>
                     <section id="calendar" className="grid-container"></section>
-                    <section id="notes" className="changing-color">Notes:</section>
+                    <section id="notes" className="changing-color">{notes}:</section>
                   </section>
                 </section>
               </section>
