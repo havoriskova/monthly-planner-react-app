@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import "./Main.css";
 
 export default function Main() {
@@ -101,7 +101,7 @@ setDays(language.daysOfWeek[lang]);
 setMonths(language.months[lang]);
 setNotes(language.notes[lang]);
 
-}, [])
+}, [selectedLanguage, language.daysOfWeek, language.months, language.notes])
 // pokud do [dependencies] dám  language.daysOfWeek, language.months, language.notes, 
 // jak si to přeje terminal, tak mám infinity loop - v console se mi furt zobrazují logy
 
@@ -128,13 +128,29 @@ const [inputYear, setInputYear] = useState(2022);
 
 const calendar = document.getElementById("calendar");
 
-function handleChangeYear(years) {
+const generateNumbers = useCallback((i, isGray) =>{
+                
+          let day = document.createElement("span");
+          day.innerHTML = i;
+          calendar.appendChild(day);
+          day.classList.add("grid-child");
+
+          if(isGray){
+          day.classList.add("gray-numbers");
+          } else if(!isGray) {
+          day.classList.add("changing-color");
+          }
+  }, [calendar])
+
+
+
+const handleChangeYear = useCallback((years) => {
 
             let daysBefore = years[`${inputYear}`].january[1];
             let days = years[`${inputYear}`].january[2];
             let daysAfter = years[`${inputYear}`].january[3];
 
-        console.log("input year: " + `${inputYear}`);
+        //console.log("input year: " + `${inputYear}`);
         
         while (calendar.firstChild) {
           calendar.removeChild(calendar.firstChild);
@@ -152,21 +168,7 @@ function handleChangeYear(years) {
                 for(let i = daysAfter[0]; i <= daysAfter[1]; i++) {
                 generateNumbers(i, true);
                 }
-            }
-
-                function generateNumbers (i, isGray){
-                
-                    let day = document.createElement("span");
-                    day.innerHTML = i;
-                    calendar.appendChild(day);
-                    day.classList.add("grid-child");
-
-                    if(isGray){
-                    day.classList.add("gray-numbers");
-                    } else if(!isGray) {
-                    day.classList.add("changing-color");
-                    }
-            }
+            }, [inputYear, calendar, generateNumbers])
 
 
 
@@ -177,7 +179,7 @@ fetch(`http://localhost:3000/years.json`)
 .then(response => response.json())
 .then(json => handleChangeYear(json));
 
-}, [])
+}, [inputYear, handleChangeYear])
 
 
 
