@@ -105,6 +105,7 @@ const [inputNotes, setinputNotes] = useState(true);
 
 const [inputFont, setInputFont] = useState("");
 
+
 //----------------konec font
 
 const [inputOrientation, setInputOrientation] = useState("landscape");
@@ -236,19 +237,19 @@ fetch(`https://famous-palmier-6bd6c0.netlify.app/years.json`) //https://famous-p
                         type="radio"
                         id="bitter"
                         value="bitter"
-                        name="font" onInput={handleFontChange} defaultChecked={true}
+                        name="font" onInput={(e) => {setInputFont(e.target.value)}} defaultChecked={true}
                       /><label htmlFor="bitter" className="radio-label">bitter</label>
                       <input
                         type="radio"
                         id="serif"
                         value="serif"
-                        name="font" onInput={handleFontChange}
+                        name="font" onInput={(e) => {setInputFont(e.target.value)}}
                       /><label htmlFor="serif" className="radio-label">serif</label>
                       <input
                         type="radio"
                         id="sans-serif"
                         value="sans-serif"
-                        name="font" onInput={handleFontChange}
+                        name="font" onInput={(e) => {setInputFont(e.target.value)}}
                       /><label htmlFor="sans-serif" className="radio-label">sans serif</label>
                     </td>
                   </tr>
