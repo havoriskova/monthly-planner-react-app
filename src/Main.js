@@ -1,7 +1,6 @@
 import {useState, useEffect} from "react";
 import "./Main.css";
 
-
 export default function Main() {
 
 //text - pak hodit do samostatného custom hooku
@@ -9,15 +8,13 @@ export default function Main() {
 //console.log("1 window.matchMedia: " + window.matchMedia); //MediaQueryList - matches, media, onchange
 //console.log("2 window.matchMedia(`(max-width:900px)`): " + window.matchMedia(`(max-width:900px)`));
 //console.log("3 window.matchMedia(`(max-width:900px)`).matches: " + window.matchMedia(`(max-width:900px)`).matches);
-
 let isMediaMatching = window.matchMedia(`(max-width:900px)`).matches;
 //console.log(mediaMatchesTwo);
-
 //konec textu
 
 
 // výška mainu - pak hodit do samostatného custom hooku 
-let [curHeight, setHeight] = useState(() => initialHeight());
+const [curHeight, setHeight] = useState(() => initialHeight());
 
 function initialHeight() {
       if(window.innerWidth > 900) {
@@ -50,7 +47,7 @@ useEffect(() =>  {
 
 //------- prozatimní react věcičky:
 
-let [selectedColor, setColor] = useState("#666aaa"); // default barva, musí být v Hex formátu
+const [selectedColor, setColor] = useState("#666aaa"); // default barva, musí být v Hex formátu
 
 useEffect(() => { 
     //console.log(color);
@@ -78,7 +75,7 @@ const language = {
            english: "Notes"}
           }
 
-let [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default language
+const [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default language
 
 //console.dir(document.getElementById(selectedLanguage));
 // možná je zapotřebí v tomhle případě asynchronní JS + nějaká spojitost s UseEffect
@@ -86,9 +83,9 @@ let [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default l
 //document.getElementById(selectedLanguage).setAttribute("defaultChecked", "true");
 //console.dir(document.getElementById(selectedLanguage));
 
-let [chosenDays, setDays] = useState(language.daysOfWeek.dutch);
-let [chosenMonths, setMonths] = useState(language.months.dutch);
-let [notes, setNotes] = useState(language.notes.dutch);
+const [chosenDays, setDays] = useState(language.daysOfWeek.dutch);
+const [chosenMonths, setMonths] = useState(language.months.dutch);
+const [notes, setNotes] = useState(language.notes.dutch);
 
 function handleLanguageChange(e) {
   setLanguage(e.target.value);
@@ -110,301 +107,79 @@ setNotes(language.notes[lang]);
 
 //------ konec language
 
-//console.log(document.getElementById("form-notes"));
-console.dir(document.getElementById("form-notes")); // v console se mi zobrazují "null",
-// po prvním načtení, ač je id zde.. a poté se mi to zobrazuje 2x - nutnost asynchronního JS?
-//console.log(document.getElementById("form-notes").value);
-
-//const inputNotes = document.getElementById("form-notes");
-
-// useEffect(() => {
-// if (inputNotes.value === "on") {
-//   inputNotes.classList.add("no-notes");
-// } else {
-//   inputNotes.classList.remove("no-notes");
-// }
-
-// }, [inputNotes])
+//console.dir(document.getElementById("form-notes")); 
+const [inputNotes, setinputNotes] = useState(true);
 
 // ----------konec notes
 
-//         changeNotes: function(e){
-//             if(!e && previewLook.defaultNotes == "on") {
-//             formNotes.setAttribute("checked", "");
-//             notes.classList.remove("no-notes");
-//             } else {
-            
-//             notes.classList.toggle("no-notes");}
-//         }
+const [inputFont, setInputFont] = useState("");
 
-// // // začátek
+function handleFontChange(e){
+  setInputFont(e.target.value);
+}
 
-// const preview = document.getElementById("preview");
-// const generatorForm = document.getElementById("generator-form");
-// const calendar = document.getElementById("calendar");
-// const formYear = document.getElementById("form-year");
-// let previewYear = document.getElementById("name-of-year");
-// let orientationForm = document.querySelectorAll(`input[name="orientation"]`);
-// const previewOrientation = document.querySelector("#preview-orientation");
-// let formLanguages = document.querySelectorAll(`input[name="language"]`);
-// let daysOfWeekPreview = document.querySelectorAll(".day-of-week");
-// let previewMonth = document.getElementById("name-of-month");
-// const color = document.getElementById("input-color");
-// const formNotes = document.getElementById("form-notes");
-// const notes = document.getElementById("notes");
-// const formFonts = document.querySelectorAll(`input[name="font"]`);
+//----------------konec font
 
+const [inputOrientation, setInputOrientation] = useState("landscape");
 
+//----------konec orientation
 
-// let previewLook = { 
+const [inputYear, setInputYear] = useState(2022);
+
+const calendar = document.getElementById("calendar");
+
+function handleChangeYear(years) {
+
+            let daysBefore = years[`${inputYear}`].january[1];
+            let days = years[`${inputYear}`].january[2];
+            let daysAfter = years[`${inputYear}`].january[3];
+
+        console.log("input year: " + `${inputYear}`);
+        
+        while (calendar.firstChild) {
+          calendar.removeChild(calendar.firstChild);
+        }
     
-//         defaultYear: 2025,
-//         defaultColor : "#008800", // value color inputu vyžaduje hexa formát
-//         defaultOrientation : "portrait",
-//         defaultFont : "bitter",
-//         defaultLanguage : "czech",
-//         defaultNotes : "on",
 
-//         setDefaultForm: function() {
-//             this.changeLanguage();
-//             //this.changeYear();
-//             this.changeColor();
-//             this.changeNotes();
-//             this.changeFont();
-//             this.changeOrientation();
-//         },
+                for(let i = daysBefore[0]; i <= daysBefore[1]; i++) {
+                    generateNumbers(i, true);
+                }
 
+                for(let i = days[0]; i <= days[1]; i++) {
+                    generateNumbers(i, false);
+                }
 
-//         // changeYear: function(e) {
-//         //     let selectedYear; 
+                for(let i = daysAfter[0]; i <= daysAfter[1]; i++) {
+                generateNumbers(i, true);
+                }
+            }
 
-//         //     if (!e) {
-//         //         selectedYear = previewLook.defaultYear;
-//         //         previewYear.innerText = selectedYear;
-//         //         fetching(true); // = načíst kalendář
-//         //         let option = document.querySelector(`option[value="${previewLook.defaultYear}"]`);
-//         //         option.setAttribute("selected", "");
-            
-//         //     } else {
-//         //     selectedYear = parseInt(e.target.value);
-//         //     previewYear.innerText = selectedYear;
-//         //     fetching(false); // = znovu načíst kalendář
-//         //     }
-
-
-//         //     function fetching(isItFirstTime) {
-
-//         //     fetch("http://localhost:3000/years.json")   // netlify https://hungry-mirzakhani-0f7c44.netlify.app/years.json // http://127.0.0.1:8887/years.json "200 ok" // 5500 live server // app.js 3000
-//         //     .then(response => {
-//         //         return response.json();
-//         //     })
-//         //     .then(jsondata => useData(jsondata, isItFirstTime));
-//         //     }
-
-
-//         //     function useData(years, isItFirstTime) {
-           
-//         //     let daysBefore = years[`${selectedYear}`].january[1];
-//         //     let days = years[`${selectedYear}`].january[2];
-//         //     let daysAfter = years[`${selectedYear}`].january[3];
-
-//         //     if (!isItFirstTime) {calendar.innerHTML= ``;}
-
-//         //         for(let i = daysBefore[0]; i <= daysBefore[1]; i++) {
-//         //             generateNumbers(i, true);
-//         //         }
-
-//         //         for(let i = days[0]; i <= days[1]; i++) {
-//         //             generateNumbers(i, false);
-//         //         }
-
-//         //         for(let i = daysAfter[0]; i <= daysAfter[1]; i++) {
-//         //         generateNumbers(i, true);
-//         //         }
-//         //     }
-
-//         //         function generateNumbers (i, isGray){
+                function generateNumbers (i, isGray){
                 
-//         //             let day = document.createElement("span");
-//         //             day.innerHTML = i;
-//         //             calendar.appendChild(day);
-//         //             day.classList.add("grid-child");
+                    let day = document.createElement("span");
+                    day.innerHTML = i;
+                    calendar.appendChild(day);
+                    day.classList.add("grid-child");
 
-//         //             if(isGray){
-//         //             day.classList.add("gray-numbers");
-//         //             } else if(!isGray) {
-//         //             day.classList.add("changing-color");
-//         //             }
-//         //     }
-//         // },
-
-//         changeLanguage: function(e) {
-
-//             const months = {
-//             czech: ["leden", "únor", "březen", "duben", "květen", "červen", "červenec", "srpen", "září", "říjen", "listopad", "prosinec"] ,
-//             dutch:  ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
-//             english: ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
-//             }
-
-//             const daysOfWeek = {
-//             czech: ["pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"],
-//             dutch: ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"],
-//             english: ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"]
-//             }
-
-
-//             let language;
-//             if (!e) {language = previewLook.defaultLanguage;
-//             let lang = document.getElementById(previewLook.defaultLanguage);
-//             lang.setAttribute("checked", "");
-
-//             }  else {language = e.path[0].id} // -> string
-            
-//             changeMonth(language);
-//             changeWeek(language);
-
-//                 function changeMonth(language) {
-//                 previewMonth.innerHTML =  months[language][0]; 
-//                 }
-
-//                 function changeWeek(language) {
-//                 for(let i = 0; i < 7; i++) {
-//                 daysOfWeekPreview[i].innerHTML = daysOfWeek[language][i];
-//                 }
-//                 }       
-
-//         },
-
-//         changeColor: function(e) {
-//             if(!e) {
-//                 root.style.setProperty(`--color-for-preview`, previewLook.defaultColor);
-//                 color.setAttribute("value", `${previewLook.defaultColor}`);
-//             } else {
-//                 root.style.setProperty(`--color-for-preview`, e.target.value);
-//             color.setAttribute("value", e.target.value)}
-//         },
-
-//         changeOrientation: function(e) {
-//             if (!e && previewLook.defaultOrientation === "landscape") {
-//                 // v CSS mám defaultně nastavený class landscape na preview
-
-//                 let orient = document.getElementById(previewLook.defaultOrientation);
-//                 orient.setAttribute("checked", "");
-
-//             } else if (!e && previewLook.defaultOrientation === "portrait") {
-
-//                 let orient = document.getElementById(previewLook.defaultOrientation);
-//                 orient.setAttribute("checked", "");
-
-//                 previewOrientation.classList.toggle("orientation-landscape");    
-//                 previewOrientation.classList.toggle("orientation-portrait"); 
-            
-//             } else {
-
-//                 previewOrientation.classList.toggle("orientation-landscape");    
-//                 previewOrientation.classList.toggle("orientation-portrait"); 
-//             }
-//         },
-
-//         changeFont: function(e) {
-
-//             if(!e) {
-//                 let font = document.getElementById(previewLook.defaultFont);
-//                 font.setAttribute("checked", "");
-//                 preview.style.fontFamily = previewLook.defaultFont;
-
-//             } else {
-
-//                 if (formFonts[1].checked) {
-//                     preview.style.fontFamily = `serif`;
-//                 } else if (formFonts[2].checked) {
-//                     preview.style.fontFamily = `sans-serif`;
-//                 }
-//                 else if (formFonts[0].checked) {
-//                     preview.style.fontFamily = `bitter`;
-//                 } }
-//         },
-
-//         changeNotes: function(e){
-//             if(!e && previewLook.defaultNotes == "on") {
-//             formNotes.setAttribute("checked", "");
-//             notes.classList.remove("no-notes");
-//             } else {
-            
-//             notes.classList.toggle("no-notes");}
-//         }
-
-//         }
-
-
-// //  //--------------
-
-
-// //previewLook.setDefaultForm(); // ten zahrnuje všechny initial calls
-
-// //formYear.addEventListener("input", previewLook.changeYear);
-// formLanguages.forEach(formLang => formLang.addEventListener("input", previewLook.changeLanguage));
-// orientationForm.forEach(orient => orient.addEventListener("input", previewLook.changeOrientation));
-// color.addEventListener("input", previewLook.changeColor);
-// formNotes.addEventListener("input", previewLook.changeNotes);
-// formFonts.forEach(font => font.addEventListener("input", previewLook.changeFont));
-
-
-// // ---------------- konec
+                    if(isGray){
+                    day.classList.add("gray-numbers");
+                    } else if(!isGray) {
+                    day.classList.add("changing-color");
+                    }
+            }
 
 
 
+useEffect(() => {
+console.log(inputYear);
+
+fetch(`http://localhost:3000/years.json`)
+.then(response => response.json())
+.then(json => handleChangeYear(json));
+
+}, [inputYear])
 
 
-// function handleSubmit(e) {
-//  e.preventDefault();
-//  console.log("tadá event objekt" ,  e);
-
-// const formEntries = new FormData(generatorForm).entries();
-// const json = Object.assign(...Array.from(formEntries, ([x,y]) => ({[x]:y})));
-// // console.log(new FormData(generatorForm)); // objekt, prototyp FormData
-// // console.log(formEntries); // objekt, prototype Interator
-// // console.log(Array.from(formEntries));
-// console.log("json", json); // objekt, prototype Object
-
-// generatePlanner(json);
-// }
-
-// generatorForm.addEventListener("submit", handleSubmit);
-
-
-
-// function generatePlanner(json) {
-
-// //console.log(json.color);
-// //console.log(Object.keys(json).length); // když 5, tak to znamená, že není Notes // underfined v class OOP
-
-
-//     class Planner { // na pořadí u constructoru záleží
-//         constructor(year, color, orientation, font, language, notes) {
-//             this.year = year;
-//             this.color = color;
-//             this.orientation = orientation;
-//             this.font = font;
-//             this.language = language;
-//             this.notes = notes;
-//         }
-
-//         createPlanner() {
-//             console.log(this.year);
-//         }
-
-  
-//     }
-
-//     let newPlanner = new Planner(...Object.values(json));
-//     console.log("newPlanner", newPlanner);
-//     newPlanner.createPlanner(); // po vytvoření planneru můžu vyvolat funkci create
-//     // můžu další funkci "stáhnout" vyvolat buď dalším řádkem, a nebo přímo v té funkci create
-
-    
-//     // a nakonec funkce na download vytvořeného souboru
-// }
 
     return (
          <main className="Main" id="generator" style={{height: curHeight}}>
@@ -424,7 +199,7 @@ console.dir(document.getElementById("form-notes")); // v console se mi zobrazuj�
                     <tr>
                     <th><label htmlFor="form-year">year:</label></th>
                     <td>
-                      <select name="year" id="form-year">
+                      <select name="year" id="form-year" onChange={(e) => setInputYear(parseInt(e.target.value))}>
                         <option value="2022">2022</option>
                         <option value="2023">2023</option>
                         <option value="2024">2024</option>
@@ -452,13 +227,13 @@ console.dir(document.getElementById("form-notes")); // v console se mi zobrazuj�
                         type="radio"
                         id="landscape"
                         value="landscape"
-                        name="orientation"
+                        name="orientation" onInput={(e)=> setInputOrientation(e.target.value)} defaultChecked={true}
                       /><label htmlFor="landscape" className="radio-label">landscape</label>
                       <input
                         type="radio"
                         id="portrait"
                         value="portrait"
-                        name="orientation"
+                        name="orientation" onInput={(e)=> setInputOrientation(e.target.value)}
                       /><label htmlFor="portrait" className="radio-label">portrait</label>
                     </td>
                   </tr>
@@ -472,19 +247,19 @@ console.dir(document.getElementById("form-notes")); // v console se mi zobrazuj�
                         type="radio"
                         id="bitter"
                         value="bitter"
-                        name="font"
+                        name="font" onInput={handleFontChange} defaultChecked={true}
                       /><label htmlFor="bitter" className="radio-label">bitter</label>
                       <input
                         type="radio"
                         id="serif"
                         value="serif"
-                        name="font"
+                        name="font" onInput={handleFontChange}
                       /><label htmlFor="serif" className="radio-label">serif</label>
                       <input
                         type="radio"
                         id="sans-serif"
                         value="sans-serif"
-                        name="font"
+                        name="font" onInput={handleFontChange}
                       /><label htmlFor="sans-serif" className="radio-label">sans serif</label>
                     </td>
                   </tr>
@@ -521,7 +296,7 @@ console.dir(document.getElementById("form-notes")); // v console se mi zobrazuj�
                     <th><label htmlFor="form-notes">extra space for notes:</label></th>
                     <td className="td-polygon">
                       <label htmlFor="form-notes"
-                        ><input type="checkbox" id="form-notes" name="notes" /><span
+                        ><input type="checkbox" id="form-notes" name="notes" onChange={() => setinputNotes(!inputNotes)} defaultChecked={true}/><span
                           className="polygon"
                         ></span
                       ></label>
@@ -532,11 +307,11 @@ console.dir(document.getElementById("form-notes")); // v console se mi zobrazuj�
               </form>
 
               <section id="preview-container">
-                <section id="preview-orientation" className="orientation-landscape">
-                  <section id="preview">
+                <section id="preview-orientation" className={inputOrientation === "landscape" ? "orientation-landscape" : "orientation-portrait"}>
+                  <section id="preview" style={{fontFamily: inputFont}}>
                     <section id="date" className="changing-color">
                       <h3 id="name-of-month">{chosenMonths[0]}</h3>
-                      <span id="name-of-year">2022</span>
+                      <span id="name-of-year">{inputYear}</span>
                     </section>
                     <section id="days-of-week-container">
                       <span className="day-of-week">{chosenDays[0]}</span>
@@ -547,8 +322,8 @@ console.dir(document.getElementById("form-notes")); // v console se mi zobrazuj�
                       <span className="day-of-week">{chosenDays[5]}</span>
                       <span className="day-of-week">{chosenDays[6]}</span>
                     </section>
-                    <section id="calendar" className="grid-container"></section>
-                    <section id="notes" className="changing-color">{notes}:</section>
+                    <section id="calendar" className="grid-container"><span>Ho</span></section>
+                    <section id="notes" className={inputNotes ? "changing-color" : "changing-color no-notes"}>{notes}:</section>
                   </section>
                 </section>
               </section>
