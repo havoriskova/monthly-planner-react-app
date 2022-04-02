@@ -105,10 +105,6 @@ const [inputNotes, setinputNotes] = useState(true);
 
 const [inputFont, setInputFont] = useState("");
 
-function handleFontChange(e){
-  setInputFont(e.target.value);
-}
-
 //----------------konec font
 
 const [inputOrientation, setInputOrientation] = useState("landscape");
@@ -166,7 +162,7 @@ const handleChangeYear = useCallback((years) => {
 useEffect(() => {
 console.log(inputYear);
 
-fetch(`http://localhost:3000/years.json`)
+fetch(`https://famous-palmier-6bd6c0.netlify.app/years.json`) //https://famous-palmier-6bd6c0.netlify.app/years.json http://localhost:3000/years.json
 .then(response => response.json())
 .then(json => handleChangeYear(json));
 
