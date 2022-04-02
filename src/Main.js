@@ -11,8 +11,6 @@ export default function Main() {
 let isMediaMatching = window.matchMedia(`(max-width:900px)`).matches;
 //console.log(mediaMatchesTwo);
 //konec textu
-
-
 // výška mainu - pak hodit do samostatného custom hooku 
 const [curHeight, setHeight] = useState(() => initialHeight());
 
@@ -44,7 +42,6 @@ useEffect(() =>  {
   return () => { window.removeEventListener("resize", handleResize)}
 })
 // konec výšky mainu 
-
 //------- prozatimní react věcičky:
 
 const [selectedColor, setColor] = useState("#666aaa"); // default barva, musí být v Hex formátu
@@ -87,21 +84,15 @@ const [chosenDays, setDays] = useState(language.daysOfWeek.dutch);
 const [chosenMonths, setMonths] = useState(language.months.dutch);
 const [notes, setNotes] = useState(language.notes.dutch);
 
-function handleLanguageChange(e) {
-  setLanguage(e.target.value);
-}
 
 useEffect(() => {
 //console.log("ahoj z useEffectu " + selectedLanguage);
-let lang = selectedLanguage;
-//console.log(lang);
-//console.log(typeof(lang));
-//console.dir(daysOfWeek[lang]);
-setDays(language.daysOfWeek[lang]);
-setMonths(language.months[lang]);
-setNotes(language.notes[lang]);
+//console.dir(daysOfWeek[selectedLanguage]);
+setDays(language.daysOfWeek[selectedLanguage]);
+setMonths(language.months[selectedLanguage]);
+setNotes(language.notes[selectedLanguage]);
 
-}, [selectedLanguage, language.daysOfWeek, language.months, language.notes])
+}, [selectedLanguage])
 // pokud do [dependencies] dám  language.daysOfWeek, language.months, language.notes, 
 // jak si to přeje terminal, tak mám infinity loop - v console se mi furt zobrazují logy
 
@@ -184,7 +175,7 @@ fetch(`http://localhost:3000/years.json`)
 
 
     return (
-         <main className="Main" id="generator" style={{height: curHeight}}>
+         <main className="Main" id="generator" style={{height: !isMediaMatching ? window.screen.availHeight - 110 : "min-content"}}>
             <div className="mask"></div>
             <h2>Generate your own planner!</h2>
           
@@ -275,19 +266,19 @@ fetch(`http://localhost:3000/years.json`)
                         type="radio"
                         id="english"
                         value="english"
-                        name="language" onInput={handleLanguageChange}
+                        name="language" onInput={(e) => setLanguage(e.target.value)}
                       /><label htmlFor="english" className="radio-label">english</label>
                       <input
                         type="radio"
                         id="czech"
                         value="czech"
-                        name="language" onInput={handleLanguageChange}
+                        name="language" onInput={(e) => setLanguage(e.target.value)}
                       /><label htmlFor="czech" className="radio-label">czech</label>
                       <input
                         type="radio"
                         id="dutch"
                         value="dutch"
-                        name="language" onInput={handleLanguageChange} defaultChecked={true}
+                        name="language" onInput={(e) => setLanguage(e.target.value)} defaultChecked={true}
                       /><label htmlFor="dutch" className="radio-label">dutch</label>
                     </td>
                   </tr>
