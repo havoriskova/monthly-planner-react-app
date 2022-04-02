@@ -172,7 +172,7 @@ fetch(`https://famous-palmier-6bd6c0.netlify.app/years.json`) //https://famous-p
 
 
     return (
-         <main className="Main" id="generator" style={{height: !isMediaMatching ? window.screen.availHeight - 110 : "min-content"}}>
+         <main className="Main" id="generator" style={{height: curHeight}}>
             <div className="mask"></div>
             <h2>Generate your own planner!</h2>
           
