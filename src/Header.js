@@ -25,7 +25,7 @@ element.scrollIntoView({behavior: "smooth"});
 
     return(
          <header className="Header">
-            <h1><a href="/">Monthly planner generator</a></h1>
+            <h1><a>Monthly planner generator</a></h1>
             <nav>
               <span className={["menu-icon", activeIcon].join(" ")} onClick={respNav}></span>
               <ul className={activeNav}>
