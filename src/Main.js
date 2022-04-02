@@ -101,7 +101,7 @@ setDays(language.daysOfWeek[lang]);
 setMonths(language.months[lang]);
 setNotes(language.notes[lang]);
 
-}, [selectedLanguage])
+}, [])
 // pokud do [dependencies] dám  language.daysOfWeek, language.months, language.notes, 
 // jak si to přeje terminal, tak mám infinity loop - v console se mi furt zobrazují logy
 
@@ -177,7 +177,7 @@ fetch(`http://localhost:3000/years.json`)
 .then(response => response.json())
 .then(json => handleChangeYear(json));
 
-}, [inputYear])
+}, [])
 
 
 

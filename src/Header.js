@@ -25,12 +25,12 @@ element.scrollIntoView({behavior: "smooth"});
 
     return(
          <header className="Header">
-            <h1><a>Monthly planner generator</a></h1>
+            <h1>Monthly planner generator</h1>
             <nav>
               <span className={["menu-icon", activeIcon].join(" ")} onClick={respNav}></span>
               <ul className={activeNav}>
-                <li><a data-id="generator" onClick={scrollFun}>Generator</a></li>
-                <li><a data-id="gallery" onClick={scrollFun}>Gallery</a></li>
+                <li><button data-id="generator" onClick={scrollFun}>Generator</button></li>
+                <li><button data-id="gallery" onClick={scrollFun}>Gallery</button></li>
               </ul>
             </nav>
       </header>
