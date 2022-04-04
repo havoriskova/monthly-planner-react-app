@@ -72,7 +72,7 @@ const language = {
            english: "Notes"}
           }
 
-const [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default language
+
 
 //console.dir(document.getElementById(selectedLanguage));
 // možná je zapotřebí v tomhle případě asynchronní JS + nějaká spojitost s UseEffect
@@ -80,22 +80,24 @@ const [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default
 //document.getElementById(selectedLanguage).setAttribute("defaultChecked", "true");
 //console.dir(document.getElementById(selectedLanguage));
 
+//const [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default language
+
 const [chosenDays, setchosenDays] = useState(language.daysOfWeek.dutch);
 const [chosenMonths, setchosenMonths] = useState(language.months.dutch);
 const [notes, setnotes]= useState(language.notes.dutch);
 
+//setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])
 
-useEffect(() => { // useRef místo effectu ??
-//console.log("ahoj z useEffectu " + selectedLanguage);
-//console.dir(daysOfWeek[selectedLanguage]);
-
-console.log(selectedLanguage);
-setchosenDays(language.daysOfWeek[selectedLanguage]);
-setchosenMonths(language.months[selectedLanguage]);
-setnotes(language.notes[selectedLanguage]);
+// useEffect(() =>  { // useRef místo effectu ??
+// //console.log("ahoj z useEffectu " + selectedLanguage);
+// //console.dir(daysOfWeek[selectedLanguage]);
 
 
-}, [selectedLanguage])
+// console.log(selectedLanguage);
+// setchosenDays(language.daysOfWeek[selectedLanguage]); 
+// setchosenMonths(language.months[selectedLanguage]);
+// setnotes(language.notes[selectedLanguage]);
+// }, [selectedLanguage])
 // pokud do [dependencies] dám  language.daysOfWeek, language.months, language.notes, 
 // jak si to přeje terminal, tak mám infinity loop - v console se mi furt zobrazují logy
 // nemůžu dát ani "chosenDays, chosenMonths, notes" - při výběru jazyka mi to taky hází infinite loop
@@ -265,19 +267,19 @@ console.log("tohle je po fetchnutí");
                         type="radio"
                         id="english"
                         value="english"
-                        name="language" onInput={(e) => setLanguage(e.target.value)}
+                        name="language" onInput={(e) => {setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])}}
                       /><label htmlFor="english" className="radio-label">english</label>
                       <input
                         type="radio"
                         id="czech"
                         value="czech"
-                        name="language" onInput={(e) => setLanguage(e.target.value)}
+                        name="language" onInput={(e) => {setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])}}
                       /><label htmlFor="czech" className="radio-label">czech</label>
                       <input
                         type="radio"
                         id="dutch"
                         value="dutch"
-                        name="language" onInput={(e) => setLanguage(e.target.value)} defaultChecked={true}
+                        name="language" onInput={(e) => {setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])}} defaultChecked={true}
                       /><label htmlFor="dutch" className="radio-label">dutch</label>
                     </td>
                   </tr>
