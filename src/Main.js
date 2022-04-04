@@ -80,9 +80,9 @@ const [selectedLanguage, setLanguage] = useState("dutch"); // nastavení default
 //document.getElementById(selectedLanguage).setAttribute("defaultChecked", "true");
 //console.dir(document.getElementById(selectedLanguage));
 
-const chosenDays = useRef(language.daysOfWeek.dutch);
-const chosenMonths = useRef(language.months.dutch);
-const notes= useRef(language.notes.dutch);
+const [chosenDays, setchosenDays] = useState(language.daysOfWeek.dutch);
+const [chosenMonths, setchosenMonths] = useState(language.months.dutch);
+const [notes, setnotes]= useState(language.notes.dutch);
 
 
 useEffect(() => { // useRef místo effectu ??
@@ -90,12 +90,12 @@ useEffect(() => { // useRef místo effectu ??
 //console.dir(daysOfWeek[selectedLanguage]);
 
 console.log(selectedLanguage);
-chosenDays.current = language.daysOfWeek[selectedLanguage];
-chosenMonths.current = language.months[selectedLanguage];
-notes.current = language.notes[selectedLanguage];
+setchosenDays(language.daysOfWeek[selectedLanguage]);
+setchosenMonths(language.months[selectedLanguage]);
+setnotes(language.notes[selectedLanguage]);
 
 
-}, [selectedLanguage, language.daysOfWeek, language.months, language.notes])
+}, [selectedLanguage])
 // pokud do [dependencies] dám  language.daysOfWeek, language.months, language.notes, 
 // jak si to přeje terminal, tak mám infinity loop - v console se mi furt zobrazují logy
 // nemůžu dát ani "chosenDays, chosenMonths, notes" - při výběru jazyka mi to taky hází infinite loop
@@ -302,20 +302,20 @@ console.log("tohle je po fetchnutí");
                 <section id="preview-orientation" className={inputOrientation === "landscape" ? "orientation-landscape" : "orientation-portrait"}>
                   <section id="preview" style={{fontFamily: inputFont}}>
                     <section id="date" className="changing-color">
-                      <h3 id="name-of-month">{chosenMonths.current[0]}</h3>
+                      <h3 id="name-of-month">{chosenMonths[0]}</h3>
                       <span id="name-of-year">{inputYear}</span>
                     </section>
                     <section id="days-of-week-container">
-                      <span className="day-of-week">{chosenDays.current[0]}</span>
-                      <span className="day-of-week">{chosenDays.current[1]}</span>
-                      <span className="day-of-week">{chosenDays.current[2]}</span>
-                      <span className="day-of-week">{chosenDays.current[3]}</span>
-                      <span className="day-of-week">{chosenDays.current[4]}</span>
-                      <span className="day-of-week">{chosenDays.current[5]}</span>
-                      <span className="day-of-week">{chosenDays.current[6]}</span>
+                      <span className="day-of-week">{chosenDays[0]}</span>
+                      <span className="day-of-week">{chosenDays[1]}</span>
+                      <span className="day-of-week">{chosenDays[2]}</span>
+                      <span className="day-of-week">{chosenDays[3]}</span>
+                      <span className="day-of-week">{chosenDays[4]}</span>
+                      <span className="day-of-week">{chosenDays[5]}</span>
+                      <span className="day-of-week">{chosenDays[6]}</span>
                     </section>
                     <section id="calendar" ref={calendarRef} className="grid-container"></section>
-                    <section id="notes" className={inputNotes ? "changing-color" : "changing-color no-notes"}>{notes.current}:</section>
+                    <section id="notes" className={inputNotes ? "changing-color" : "changing-color no-notes"}>{notes}:</section>
                   </section>
                 </section>
               </section>
