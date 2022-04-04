@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from "react";
+import {React, useState, useEffect, useCallback} from "react";
 import "./Main.css";
 
 export default function Main() {
@@ -113,11 +113,10 @@ const [inputOrientation, setInputOrientation] = useState("landscape");
 //----------konec orientation
 
 const [inputYear, setInputYear] = useState(2022);
-
-const calendar = document.getElementById("calendar");
+let calendar = document.getElementById("calendar");
 
 const generateNumbers = useCallback((i, isGray) =>{
-                
+                    
           let day = document.createElement("span");
           day.innerHTML = i;
           calendar.appendChild(day);
@@ -131,19 +130,16 @@ const generateNumbers = useCallback((i, isGray) =>{
   }, [calendar])
 
 
-
 const handleChangeYear = useCallback((years) => {
 
             let daysBefore = years[`${inputYear}`].january[1];
             let days = years[`${inputYear}`].january[2];
             let daysAfter = years[`${inputYear}`].january[3];
 
-        //console.log("input year: " + `${inputYear}`);
-        
-        while (calendar.firstChild) {
-          calendar.removeChild(calendar.firstChild);
-        }
-    
+            calendar = document.getElementById("calendar");
+        console.log("handleChangeYear callback");
+        calendar.innerHTML = "";
+        console.log(calendar);
 
                 for(let i = daysBefore[0]; i <= daysBefore[1]; i++) {
                     generateNumbers(i, true);
@@ -156,16 +152,18 @@ const handleChangeYear = useCallback((years) => {
                 for(let i = daysAfter[0]; i <= daysAfter[1]; i++) {
                 generateNumbers(i, true);
                 }
-            }, [inputYear, calendar, generateNumbers])
+}, [calendar, inputYear, generateNumbers])
 
 
 
 useEffect(() => {
 console.log(inputYear);
 
-fetch(`https://famous-palmier-6bd6c0.netlify.app/years.json`) //https://famous-palmier-6bd6c0.netlify.app/years.json http://localhost:3000/years.json
+fetch(`http://localhost:3000/years.json`) //https://famous-palmier-6bd6c0.netlify.app/years.json http://localhost:3000/years.json
 .then(response => response.json())
 .then(json => handleChangeYear(json));
+
+console.log("tohle je po fetchnutí");
 
 }, [inputYear, handleChangeYear])
 
@@ -312,7 +310,7 @@ fetch(`https://famous-palmier-6bd6c0.netlify.app/years.json`) //https://famous-p
                       <span className="day-of-week">{chosenDays[5]}</span>
                       <span className="day-of-week">{chosenDays[6]}</span>
                     </section>
-                    <section id="calendar" className="grid-container"><span>Ho</span></section>
+                    <section id="calendar" className="grid-container"></section>
                     <section id="notes" className={inputNotes ? "changing-color" : "changing-color no-notes"}>{notes}:</section>
                   </section>
                 </section>
