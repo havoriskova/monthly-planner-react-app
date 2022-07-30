@@ -82,7 +82,7 @@ useEffect(() => {
   setchosenDays(language.daysOfWeek[chosenLanguage]); 
   setchosenMonths(language.months[chosenLanguage]); 
   setnotes(language.notes[chosenLanguage]); 
-  }, [language]
+  }, [language, chosenLanguage]
 );
 
 //setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])
@@ -157,7 +157,7 @@ const handleChangeYear = useCallback((years) => {
                 for(let i = daysAfter[0]; i <= daysAfter[1]; i++) {
                 generateNumbers(i, true);
                 }
-}, [calendarRef, inputYear]);
+}, [calendarRef, inputYear, generateNumbers]);
 
 
 
@@ -168,7 +168,7 @@ handleChangeYear(yearsJS);
 
 console.log("tohle je po fetchnutí");
 
-}, [inputYear]);
+}, [inputYear, handleChangeYear]);
 
 
 
