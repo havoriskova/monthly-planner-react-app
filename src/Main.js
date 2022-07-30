@@ -82,7 +82,7 @@ useEffect(() => {
   setchosenDays(language.daysOfWeek[chosenLanguage]); 
   setchosenMonths(language.months[chosenLanguage]); 
   setnotes(language.notes[chosenLanguage]); 
-  }, [chosenLanguage]
+  }, [language, chosenLanguage]
 );
 
 //setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])
