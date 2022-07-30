@@ -1,5 +1,7 @@
 import {React, useRef, useState, useEffect, useCallback} from "react";
 import "./Main.css";
+import Submit from "./Submit";
+import {yearsJS} from "./years.js";
 
 export default function Main() {
 
@@ -11,37 +13,25 @@ export default function Main() {
 let isMediaMatching = window.matchMedia(`(max-width:900px)`).matches;
 //console.log(mediaMatchesTwo);
 //konec textu
-// výška mainu - pak hodit do samostatného custom hooku 
-const [curHeight, setHeight] = useState(() => initialHeight());
 
-function initialHeight() {
+// výška mainu - pak hodit do samostatného custom hooku 
+const [curHeight, setHeight] = useState("min-content"); /*() => initialHeight()*/
+
+function handleResize() {
       if(window.innerWidth > 900) {
-        let calcHeight = window.screen.availHeight - 110; 
-        return (`${calcHeight}px`);
+        setHeight(window.screen.availHeight - 110); 
       } else {
-        return "min-content";
+        setHeight("min-content");
       }
 }
 
 
-function handleResize() {
-let calcHeight = window.screen.availHeight - 110; 
-//console.log(window.screen.availHeight - 110);
-
-  if (window.innerWidth > 900) {
- setHeight(`${calcHeight}px`); 
- //console.log("je větší jak 900");
-  } else {
-      setHeight("min-content"); 
-      //console.log("je menší jak 900");
-  }
-}
-
 useEffect(() =>  { 
   window.addEventListener("resize", handleResize);
   return () => { window.removeEventListener("resize", handleResize)}
-})
+}, [])
 // konec výšky mainu 
+
 //------- prozatimní react věcičky:
 
 const [selectedColor, setColor] = useState("#666aaa"); // default barva, musí být v Hex formátu
@@ -85,6 +75,15 @@ const language = {
 const [chosenDays, setchosenDays] = useState(language.daysOfWeek.dutch);
 const [chosenMonths, setchosenMonths] = useState(language.months.dutch);
 const [notes, setnotes]= useState(language.notes.dutch);
+
+const [chosenLanguage, setChosenLanguage] = useState("english");
+
+useEffect(() => { 
+  setchosenDays(language.daysOfWeek[chosenLanguage]); 
+  setchosenMonths(language.months[chosenLanguage]); 
+  setnotes(language.notes[chosenLanguage]); 
+  }, [language]
+);
 
 //setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])
 
@@ -133,7 +132,7 @@ const generateNumbers = useCallback((i, isGray) =>{
           } else if(!isGray) {
           day.classList.add("changing-color");
           }
-  }, [calendarRef])
+  }, [calendarRef]);
 
 
 const handleChangeYear = useCallback((years) => {
@@ -158,20 +157,18 @@ const handleChangeYear = useCallback((years) => {
                 for(let i = daysAfter[0]; i <= daysAfter[1]; i++) {
                 generateNumbers(i, true);
                 }
-}, [calendarRef, inputYear, generateNumbers])
+}, [calendarRef, inputYear]);
 
 
 
 useEffect(() => {
 console.log(inputYear);
 
-fetch(`http://localhost:3000/years.json`) //https://famous-palmier-6bd6c0.netlify.app/years.json http://localhost:3000/years.json
-.then(response => response.json())
-.then(json => handleChangeYear(json));
+handleChangeYear(yearsJS);
 
 console.log("tohle je po fetchnutí");
 
-}, [inputYear, handleChangeYear])
+}, [inputYear]);
 
 
 
@@ -182,7 +179,7 @@ console.log("tohle je po fetchnutí");
           
             <section id="generator-section">
             
-              <form id="generator-form">
+              <form id="generator-form" onSubmit={(e) => {e.preventDefault(); console.log("submit")}}>
                 <p>
                   Fill this form according to your preference - <span
                    className="text-change">{isMediaMatching ? "down below" : "on the left side"}</span> you can see a preview
@@ -267,19 +264,19 @@ console.log("tohle je po fetchnutí");
                         type="radio"
                         id="english"
                         value="english"
-                        name="language" onInput={(e) => {setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])}}
+                        name="language" onInput={(e) => {setChosenLanguage(e.target.value); }}
                       /><label htmlFor="english" className="radio-label">english</label>
                       <input
                         type="radio"
                         id="czech"
                         value="czech"
-                        name="language" onInput={(e) => {setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])}}
+                        name="language" onInput={(e) => {setChosenLanguage(e.target.value);}}
                       /><label htmlFor="czech" className="radio-label">czech</label>
                       <input
                         type="radio"
                         id="dutch"
                         value="dutch"
-                        name="language" onInput={(e) => {setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])}} defaultChecked={true}
+                        name="language" onInput={(e) => {setChosenLanguage(e.target.value);}} defaultChecked={true}
                       /><label htmlFor="dutch" className="radio-label">dutch</label>
                     </td>
                   </tr>
@@ -300,7 +297,7 @@ console.log("tohle je po fetchnutí");
                 </table>
               </form>
 
-              <section id="preview-container">
+              <section id="preview-container"> {/* template */}
                 <section id="preview-orientation" className={inputOrientation === "landscape" ? "orientation-landscape" : "orientation-portrait"}>
                   <section id="preview" style={{fontFamily: inputFont}}>
                     <section id="date" className="changing-color">
@@ -323,9 +320,7 @@ console.log("tohle je po fetchnutí");
               </section>
             </section>
             
-            <button id="submit-button" form="generator-form">
-              Download your planner
-            </button>
+            <Submit />
       </main>
     )
 }
