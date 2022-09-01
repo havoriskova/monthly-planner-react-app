@@ -14,14 +14,14 @@ const [isMediaMatching, setMediaMatching] = useState(window.matchMedia(`(max-wid
 //console.log(mediaMatchesTwo);
 //konec textu
 
- function match(){
+ const match = useCallback(()=>{
   setMediaMatching((window.matchMedia(`(max-width:900px)`).matches));
- }
+ }, []);
 
 useEffect(()=> {
   window.addEventListener("resize", match);
   return () => window.removeEventListener("resize", match);
-}, []);
+}, [match]);
 
 // výška mainu - pak hodit do samostatného custom hooku 
 const [curHeight, setHeight] = useState("min-content"); /*() => initialHeight()*/
@@ -85,7 +85,7 @@ const changeLanguage = useCallback(()=> {
   setchosenDays(language.daysOfWeek[chosenLanguage]); 
   setchosenMonths(language.months[chosenLanguage]); 
   setnotes(language.notes[chosenLanguage])
-}, [chosenLanguage]);
+}, [chosenLanguage, language]);
 
 useEffect(() => { 
  changeLanguage();
