@@ -10,26 +10,28 @@ export default function Main() {
 //console.log("1 window.matchMedia: " + window.matchMedia); //MediaQueryList - matches, media, onchange
 //console.log("2 window.matchMedia(`(max-width:900px)`): " + window.matchMedia(`(max-width:900px)`));
 //console.log("3 window.matchMedia(`(max-width:900px)`).matches: " + window.matchMedia(`(max-width:900px)`).matches);
-let isMediaMatching = window.matchMedia(`(max-width:900px)`).matches;
+const [isMediaMatching, setMediaMatching] = useState(window.matchMedia(`(max-width:900px)`).matches);
 //console.log(mediaMatchesTwo);
 //konec textu
+
+ function match(){
+  setMediaMatching((window.matchMedia(`(max-width:900px)`).matches));
+ }
+
+useEffect(()=> {
+  window.addEventListener("resize", match);
+  return () => window.removeEventListener("resize", match);
+}, []);
 
 // výška mainu - pak hodit do samostatného custom hooku 
 const [curHeight, setHeight] = useState("min-content"); /*() => initialHeight()*/
 
-function handleResize() {
-      if(window.innerWidth > 900) {
-        setHeight(window.screen.availHeight - 110); 
-      } else {
-        setHeight("min-content");
-      }
-}
-
 
 useEffect(() =>  { 
-  window.addEventListener("resize", handleResize);
-  return () => { window.removeEventListener("resize", handleResize)}
-}, [])
+      !isMediaMatching 
+      ? setHeight(window.screen.availHeight - 110)
+      : setHeight("min-content");
+}, [isMediaMatching]);
 // konec výšky mainu 
 
 //------- prozatimní react věcičky:
@@ -40,6 +42,7 @@ useEffect(() => {
     //console.log(color);
     const root = document.querySelector(":root");
     root.style.setProperty(`--color-for-preview`, selectedColor);
+    console.log(selectedColor);
 }, [selectedColor]);
 
 //----------------konec color
@@ -78,12 +81,15 @@ const [notes, setnotes]= useState(language.notes.dutch);
 
 const [chosenLanguage, setChosenLanguage] = useState("english");
 
-useEffect(() => { 
+const changeLanguage = useCallback(()=> {
   setchosenDays(language.daysOfWeek[chosenLanguage]); 
   setchosenMonths(language.months[chosenLanguage]); 
-  setnotes(language.notes[chosenLanguage]); 
-  }, [language, chosenLanguage]
-);
+  setnotes(language.notes[chosenLanguage])
+}, [chosenLanguage]);
+
+useEffect(() => { 
+ changeLanguage();
+  }, [chosenLanguage, changeLanguage]);
 
 //setchosenDays(language.daysOfWeek[e.target.value]); setchosenMonths(language.months[e.target.value]); setnotes(language.notes[e.target.value])
 
@@ -204,8 +210,8 @@ console.log("tohle je po fetchnutí");
                   <tr>
                     <th><label htmlFor="input-color">color: </label></th>
                     <td>
-                      <input type="color" name="color" id="input-color" 
-                      onChange={(e) => setColor(e.target.value)} value={selectedColor}/>
+                      <input type="color" name="color" id="input-color" value={selectedColor}
+                      onChange={(e) => setColor(e.target.value)}/>
                     </td>
                   </tr>
                   </tbody>
