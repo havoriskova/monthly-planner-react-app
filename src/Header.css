@@ -39,6 +39,24 @@ header.Header {
   display: flex;
 }
 
+.Header nav li:last-child {
+  padding-right: 5rem;
+}
+
+.Header nav li:last-child:after {
+  position: absolute;
+  content: "";
+  right: 0;
+  width: 5rem;
+  top: 0;
+  height: 100%;
+    background-image: var(--pattern-white);
+      background-size: var(--pattern-size);
+      background-attachment: fixed;
+      background-repeat: repeat;
+
+}
+
 .Header nav li button,
 .Header h1 {
   text-decoration: none;
@@ -53,10 +71,8 @@ header.Header {
   cursor: pointer;
 }
 
-.Header h1 button {
-  background-color: transparent;
-  color: gold;
-  text-shadow: 2px 2px 2px black, 0px 0px 2px black;
+.Header h1 {
+padding-left: 5rem;
 }
 
 .Header nav li button:hover {
@@ -64,6 +80,23 @@ header.Header {
   color: white;
   cursor: pointer;
 }
+
+
+@media (max-width: 1200px) {
+  .Header h1 {
+    padding-left: 1rem;
+  }
+
+  .Header ul li:last-child {
+    padding-right: 1rem;
+  }
+
+  .Header ul li:last-child:after {
+    width: 1rem;
+  }
+}
+
+
 
 @media (max-width: 900px) {
   header.Header {
@@ -73,6 +106,7 @@ header.Header {
   .Header h1 {
     font-size: 1.3rem;
   }
+
 
   .Header .menu-icon {
     display: block;
@@ -120,11 +154,20 @@ header.Header {
     border-radius: 4px;
   }
 
+  
   .Header nav ul {
     display: none;
     flex-direction: column;
     width: 100%;
   }
+
+    .Header ul li:last-child {
+      padding-right: 0rem;
+    }
+  
+    .Header ul li:last-child:after {
+      width: 0rem;
+    }
 
   .Header .active-nav {
     display: block;

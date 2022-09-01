@@ -15,10 +15,13 @@ function respNav () {
 
 }
 
+
 function scrollFun (e) {
 let idName = e.target.attributes[0].value;
 let element = document.getElementById(idName);
 element.scrollIntoView({behavior: "smooth"});
+setActiveNav(null);
+setActiveIcon(null);
 }
 
 
