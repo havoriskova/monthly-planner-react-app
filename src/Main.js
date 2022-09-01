@@ -1,4 +1,4 @@
-import {React, useRef, useState, useEffect, useCallback} from "react";
+import {React, useRef, useState, useEffect, useCallback, useMemo} from "react";
 import "./Main.css";
 import Submit from "./Submit";
 import {yearsJS} from "./years.js";
@@ -47,7 +47,8 @@ useEffect(() => {
 
 //----------------konec color
 
-const language = {
+const language = useMemo(() => {
+  return {
  daysOfWeek: {
             czech: ["pondělí", "úterý", "středa", "čtvrtek", "pátek", "sobota", "neděle"],
             dutch: ["maandag", "dinsdag", "woensdag", "donderdag", "vrijdag", "zaterdag", "zondag"],
@@ -63,7 +64,7 @@ const language = {
   notes: { czech: "Poznámky",
            dutch: "Notities",
            english: "Notes"}
-          }
+          }}, []);
 
 
 
