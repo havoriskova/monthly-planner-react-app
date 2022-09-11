@@ -5,6 +5,11 @@ import "./About.css";
 
 export default function About() {
 
+  function scrollToGallery(e) {
+    let gallery = document.getElementById("gallery");
+    gallery.scrollIntoView({behavior: "smooth"});
+  }
+
     return(
         <aside className="About">
     
@@ -22,7 +27,7 @@ export default function About() {
         
             <p>
               If you strugle
-              with your design, just look in the <a href="#gallery" className="link-in-text">gallery</a> for an
+              with your design, just look in the <span className="link-in-text" onClick={scrollToGallery}>gallery</span> for an
               inspiration! You can also find there possible ways how to use your
               monthly planner.
             </p>

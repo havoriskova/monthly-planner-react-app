@@ -65,7 +65,11 @@ header.Header {
   padding: 0 1rem;
   color: black;
   transition: background-color 0.2s ease, color 0.2s ease;
-  background-color: white;
+  /* background-color: red; */
+  background-image: var(--pattern-white);
+    background-size: var(--pattern-size);
+    background-attachment: fixed;
+    background-repeat: repeat;
   font-family: "Special Elite", cursive;
   border: none;
   cursor: pointer;
@@ -77,6 +81,7 @@ padding-left: 5rem;
 
 .Header nav li button:hover {
   background-color: transparent;
+  background-image: none;
   color: white;
   cursor: pointer;
 }

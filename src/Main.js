@@ -327,7 +327,7 @@ console.log("tohle je po fetchnutí");
               </section>
             </section>
             
-            <Submit />
+            <Submit info={"info"}/>
       </main>
     )
 }

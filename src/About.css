@@ -17,6 +17,7 @@ aside.About {
 
 .About .link-in-text {
   color: gold;
+  cursor: pointer;
 }
 
 @media (max-width: 1200px) {
