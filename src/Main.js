@@ -115,7 +115,7 @@ const [inputNotes, setinputNotes] = useState(true);
 
 // ----------konec notes
 
-const [inputFont, setInputFont] = useState("");
+const [inputFont, setInputFont] = useState("bitter"); /* kontrola s JSX */
 
 
 //----------------konec font
@@ -177,7 +177,16 @@ console.log("tohle je po fetchnutí");
 
 }, [inputYear, handleChangeYear]);
 
+//objekt, co pošlu do <Submitu /> :
 
+const submitInfo = {
+  year: inputYear,
+  color: selectedColor,
+  language: chosenLanguage,
+  notes: inputNotes,
+  font: inputFont,
+  orientation: inputOrientation,
+};
 
     return (
          <main className="Main" id="generator" style={{height: curHeight}}>
@@ -327,7 +336,7 @@ console.log("tohle je po fetchnutí");
               </section>
             </section>
             
-            <Submit info={"info"}/>
+            <Submit info={submitInfo}/>
       </main>
     )
 }
