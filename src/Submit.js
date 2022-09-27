@@ -20,7 +20,7 @@ import { PDFDownloadLink} from "@react-pdf/renderer";
         >
 {({loading}) => loading ? (
     <span>Loading document..</span>) : (
-        <span>download</span> )
+        <span>Download your planner</span> )
 }
         </PDFDownloadLink>
 </button>
