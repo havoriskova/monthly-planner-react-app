@@ -216,24 +216,34 @@ input[type="radio"]:nth-of-type(3) {
 .Main #submit-button {
   position: relative;
   z-index: 5;
-  background-color: var(--color-for-preview); /**/
-  color: white;
   /* bottom: 40px;
   left: 50%;
   transform: translateX(-50%); */
   display: block;
   margin: 0 auto;
   bottom: -90px;
-  padding: 10px 40px;
+  /* padding: 10px 40px; */
   font-family: "Bitter", serif;
   border: none;
   cursor: pointer;
 }
 
-.Main #submit-button:hover {
-  background-color: gold; /**/
+.Main #submit-button > * {
+  padding: 10px 40px;
+  background-color: gold;
+  text-decoration: none;
   color: black;
+  display: block;
+  font-weight: bold;
+  font-size: 16px;
+  font-family: var(--font-p);
 }
+
+.Main #submit-button:hover * {
+  background-color: var(--color-for-preview);
+  color: white;
+}
+
 
 .Main #preview-container {
   flex: 0 0 45%;
@@ -448,5 +458,9 @@ input[type="radio"]:nth-of-type(3) {
 @media (max-width: 560px) {
   .Main form {
     font-size: 0.75rem;
+  }
+
+  .Main #submit-button * {
+    font-size: 12px;
   }
 }
