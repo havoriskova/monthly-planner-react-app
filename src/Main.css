@@ -216,10 +216,6 @@ input[type="radio"]:nth-of-type(3) {
 .Main #submit-button {
   position: relative;
   z-index: 5;
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 71986e6 (update)
   background-color: #666aaa; /**/
   color: white;
 
